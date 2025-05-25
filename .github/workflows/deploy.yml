@@ -20,19 +20,12 @@ jobs:
           name: id_rsa
           known_hosts: '[52.194.159.119]:22211'
 
-      - name: Check if SSH key file exists and print fingerprint
-        run: |
-          if [ -f ~/.ssh/id_rsa ]; then
-            echo "SSH key file exists."
-            ssh-keygen -lf ~/.ssh/id_rsa
-          else
-            echo "SSH key file is missing."
-          fi
       - name: Add SSH host key to known_hosts
         run: |
           ssh-keyscan -p 22211 52.194.159.119 >> ~/.ssh/known_hosts
       
       - name: Deploy files to AWS
         run: |
-          scp -P 22211 ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
+          rsync -avz -e "ssh -p 22211" ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
+
 
