@@ -17,18 +17,18 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.DEPLOY_KEY }}
-          name: nycuaa_ec2.pem
-          known_hosts: '52.194.159.119:22211'
+          name: id_rsa
+          known_hosts: 52.194.159.119
 
       - name: Check if SSH key file exists and print fingerprint
         run: |
-          if [ -f ~/.ssh/nycuaa_ec2.pem ]; then
+          if [ -f ~/.ssh/id_rsa ]; then
             echo "SSH key file exists."
-            ssh-keygen -lf ~/.ssh/nycuaa_ec2.pem
+            ssh-keygen -lf ~/.ssh/id_rsa
           else
             echo "SSH key file is missing."
           fi
 
       - name: Deploy files to AWS
         run: |
-          scp -P 22211 -i ~/.ssh/nycuaa_ec2.pem ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
+          scp -P 22211 ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
