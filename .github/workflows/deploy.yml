@@ -18,7 +18,7 @@ jobs:
         with:
           key: ${{ secrets.KEY }}
           name: id_rsa
-          known_hosts: 52.194.159.119
+          known_hosts: '[52.194.159.119]:22211'
 
       - name: Check if SSH key file exists and print fingerprint
         run: |
