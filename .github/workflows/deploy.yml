@@ -31,4 +31,4 @@ jobs:
 
       - name: Deploy files to AWS
         run: |
-          rsync -avz -e "ssh -p 22211 -i ~/.ssh/nycuaa_ec2.pem" ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
+          scp -P 22211 -i ~/.ssh/nycuaa_ec2.pem ./ ubuntu@52.194.159.119:/var/www/html/nycuaa.org/calendar
